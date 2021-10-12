@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -32,17 +33,16 @@ class UserController extends Controller
         $user = new User();
 
         $user->name = old("name");
-        $user->price = old("email");
-        $user->password = old("password");
+        $user->email = old("email");
         $user->role_id = old("role_id");
 
         return view(
-            'product.form',
+            'user.form',
             [
-                "product" => $user,
+                "user" => $user,
                 "method" => "POST",
                 "action_url" => url('/user'),
-                // "categories" => Category::all()
+                "roles" => Role::all()
             ]
         );
     }
@@ -55,7 +55,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:5',
+            'role_id' => 'required'
+        ]);
+
+        $user = new User($request->all());
+        $user->save();
+
+        $user->roles()->attach($request->role_id);
+        $user->save();
+
+        return redirect('/user');
     }
 
     /**

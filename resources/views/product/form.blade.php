@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="price" class="col-sm-2 col-form-label">Kategory</label>
+                    <label for="category_id" class="col-sm-2 col-form-label">Kategory</label>
                     <div class="col-sm-10">
                         <select name="category_id" class="form-select" aria-label="Default select example">
                             @foreach ($categories as $category)

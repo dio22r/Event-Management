@@ -27,7 +27,12 @@
                     <tr>
                         <th scope="row"> {{ $loop->iteration }} </th>
                         <td><a href="{{ url("/user/" . $user->id) }}">{{ $user->name }}</a></td>
-                        <td>{{ $user->detail }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>
+                            @foreach ($user->roles as $role)
+                            {{ $role->name }},
+                            @endforeach
+                        </td>
                         <td>
                             <form method="POST" action="{{ url('/user/' . $user->id) }}">
                                 @method('DELETE')
