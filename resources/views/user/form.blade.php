@@ -51,16 +51,27 @@
                 <div class="row mb-3">
                     <label for="role_id" class="col-sm-2 col-form-label">Role</label>
                     <div class="col-sm-10">
-                        <select name="role_id" class="form-select" aria-label="Default select example">
-                            @foreach ($roles as $role)
+
+                        @foreach ($roles as $role)
+
+                        <div class="form-check">
+
                             @if ($role->id == $user->role_id)
-                            <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
+
                             @else
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+
                             @endif
-                            @endforeach
-                        </select>
-                        @error('role')
+
+                            <input name="roles[]" class="form-check-input" type="checkbox" value="{{ $role->id }}">
+                            <label class="form-check-label" for="defaultCheck1">
+                                {{ $role->name }}
+                            </label>
+                        </div>
+
+
+                        @endforeach
+
+                        @error('roles')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -69,7 +80,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-10 offset-sm-2">
-                        <a href="{{ url('/product') }}" class="btn btn-sm btn-light">Kembali</a>
+                        <a href="{{ url('/user') }}" class="btn btn-sm btn-light">Kembali</a>
                         <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
                     </div>
                 </div>

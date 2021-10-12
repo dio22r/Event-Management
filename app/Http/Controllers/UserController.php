@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -34,7 +35,7 @@ class UserController extends Controller
 
         $user->name = old("name");
         $user->email = old("email");
-        $user->role_id = old("role_id");
+        $user->roles = old("role_id");
 
         return view(
             'user.form',
@@ -59,13 +60,17 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:5',
-            'role_id' => 'required'
+            'roles' => 'required'
         ]);
 
         $user = new User($request->all());
+        $user->password = Hash::make($user->password);
         $user->save();
 
-        $user->roles()->attach($request->role_id);
+        foreach ($request->roles as $role_id) {
+            $user->roles()->attach($role_id);
+        }
+
         $user->save();
 
         return redirect('/user');
