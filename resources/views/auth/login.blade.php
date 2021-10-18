@@ -1,50 +1,38 @@
 @extends('layouts.main')
 
+@section('css')
+
+<link href="{{ url("/assets/css/login.css") }}" rel="stylesheet">
+
+@endsection
+
 @section('title', 'Form User')
 
 @section('content')
 
 
 <div class="container my-3">
-    <div class="card">
-        <div class="card-header">
-            User Login
-        </div>
-        <div class="card-body">
-            <form method="post" action="{{ $action_url }}">
-                @csrf
 
-                <div class="row mb-3">
-                    <label for="email" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}">
-                        @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="password" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="">
-                        @error('password')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-10 offset-sm-2">
-                        <a href="{{ url('/user') }}" class="btn btn-sm btn-light">Kembali</a>
-                        <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    <main class="form-signin">
+
+        <form class="text-center" method="post" action="{{ $action_url }}">
+            @csrf
+            <img class="mb-4" src="{{ url("/assets/svg/bootstrap-logo.svg") }}" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}" placeholder="email@email.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+
+        </form>
+    </main>
 </div>
 
 
