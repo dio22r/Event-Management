@@ -40,7 +40,7 @@
                 <div class="row mb-3">
                     <label for="password" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="{{ $user->password }}">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="">
                         @error('password')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -52,17 +52,11 @@
                     <label for="role_id" class="col-sm-2 col-form-label">Role</label>
                     <div class="col-sm-10">
 
+
                         @foreach ($roles as $role)
 
                         <div class="form-check">
-
-                            @if ($role->id == $user->role_id)
-
-                            @else
-
-                            @endif
-
-                            <input name="roles[]" class="form-check-input" type="checkbox" value="{{ $role->id }}">
+                            <input name="roles[]" class="form-check-input" type="checkbox" value="{{ $role->id }}" @if (in_array($role->id, (array) $rolesId)) checked @endif>
                             <label class="form-check-label" for="defaultCheck1">
                                 {{ $role->name }}
                             </label>

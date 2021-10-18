@@ -35,7 +35,6 @@ class UserController extends Controller
 
         $user->name = old("name");
         $user->email = old("email");
-        $user->roles = old("role_id");
 
         return view(
             'user.form',
@@ -43,7 +42,8 @@ class UserController extends Controller
                 "user" => $user,
                 "method" => "POST",
                 "action_url" => url('/user'),
-                "roles" => Role::all()
+                "roles" => Role::all(),
+                "rolesId" => old("roles")
             ]
         );
     }
@@ -84,7 +84,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -93,9 +92,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+
+        $rolesId = $user->roles->map(function ($role) {
+            return $role->id;
+        })->all();
+
+        return view(
+            'user.form',
+            [
+                "user" => $user,
+                "method" => "PUT",
+                "action_url" => url('/user/' . $user->id),
+                "roles" => Role::all(),
+                "rolesId" => $rolesId
+            ]
+        );
     }
 
     /**
@@ -105,9 +118,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'roles' => 'required'
+        ]);
+
+        $user->roles()->sync($request->roles);
+
+        if ($request->password) {
+            $arrUpdate = $request->all();
+            $arrUpdate["password"] = Hash::make($request->password);
+        } else {
+            $arrUpdate = $request->except(['password']);
+        }
+
+        $user->update($arrUpdate);;
+
+        return redirect('/user');
     }
 
     /**
@@ -116,8 +146,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect('/user');
     }
 }
