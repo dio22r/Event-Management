@@ -9,32 +9,62 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+    @yield('css')
+
     <title>@yield('title')</title>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="#">POS</a>
+
+            @if (Auth::check())
+
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @if (Auth::check())
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse  justify-content-between" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="{{ url('/product') }}">Produk</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/category') }}">Kategory</a>
                     </li>
+                     -->
+                    @can("is_registration")
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/user') }}">User</a>
+                        <a class="nav-link @if (Request::is('participant*')) active @endif" href="{{ url('/participant') }}">Pendaftaran</a>
                     </li>
+                    @endcan
+                    @can("is_payment")
+                    <li class="nav-item">
+                        <a class="nav-link @if (Request::is('payment*')) active @endif" href="{{ url('/payment') }}">Pembayaran</a>
+                    </li>
+                    @endcan
+                    @can("is_acomodation")
+                    <li class="nav-item">
+                        <a class="nav-link @if (Request::is('accomodation*')) active @endif" href="{{ url('/akomodasi') }}">Akomodasi</a>
+                    </li>
+                    @endcan
+                    <li class="nav-item">
+                        <a class="nav-link @if (Request::is('report*')) active @endif" href="{{ url('/laporan') }}">Laporan</a>
+                    </li>
+                    @can("is_presensi")
+                    <li class="nav-item">
+                        <a class="nav-link @if (Request::is('presensi*')) active @endif" href="{{ url('/kehadiran') }}">Kehadiran</a>
+                    </li>
+                    @endcan
+                    @can("is_admin")
+                    <li class="nav-item">
+                        <a class="nav-link @if (Request::is('user*')) active @endif" href="{{ url('/user') }}">User</a>
+                    </li>
+                    @endcan
                 </ul>
-            </div>
-            <div class="d-flex">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,6 +81,7 @@
                     </li>
                 </ul>
             </div>
+
             @endif
         </div>
     </nav>
