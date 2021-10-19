@@ -48,11 +48,11 @@
                     @endcan
                     @can("is_acomodation")
                     <li class="nav-item">
-                        <a class="nav-link @if (Request::is('accomodation*')) active @endif" href="{{ url('/akomodasi') }}">Akomodasi</a>
+                        <a class="nav-link @if (Request::is('accomodation*')) active @endif" href="{{ url('/accomodation') }}">Akomodasi</a>
                     </li>
                     @endcan
                     <li class="nav-item">
-                        <a class="nav-link @if (Request::is('report*')) active @endif" href="{{ url('/laporan') }}">Laporan</a>
+                        <a class="nav-link @if (Request::is('report*')) active @endif" href="{{ url('/report') }}">Laporan</a>
                     </li>
                     @can("is_presensi")
                     <li class="nav-item">
@@ -71,8 +71,8 @@
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Ganti Password</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/profile') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/password') }}">Ganti Password</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
