@@ -11,6 +11,9 @@
 |
 */
 
+// use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,7 +27,11 @@ Route::group(["middleware" => ["auth"]], function () {
 
     // ==================== Product ===================== //
 
-    Route::get('/home', 'ProductController@index');
+    Route::get('/home', fn () => view("profile.profile"));
+    Route::get('/profile', fn () => view("profile.profile"));
+
+    Route::get('/password', "ProfileController@edit_password");
+    Route::post('/password', "ProfileController@update_password");
 
     Route::get('/product', 'ProductController@index');
     Route::get('/product/form', 'ProductController@create');
@@ -66,7 +73,12 @@ Route::group(["middleware" => ["auth"]], function () {
 
     // ==================== eof User ===================== //
 
-    Route::resource("/participant", "ParticipantController")->middleware("is_registration");
+    Route::resource("/participant", "ParticipantController")->except(["show"])->middleware("is_registration");
+    Route::get("/participant/{participant}", "ParticipantController@show");
 
-    Route::resource("/payment", "PaymentController");
+    Route::resource("/payment", "PaymentController")->except(["show"])->middleware("is_payment");
+    Route::get("/payment/{payment}", "PaymentController@show");
+
+    Route::resource("/accomodation", "AccomodationController")->except(["show"])->middleware("is_accomodation");
+    Route::get("/accomodation/{accomodation}", "AccomodationController@show");
 });
