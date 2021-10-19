@@ -84,13 +84,18 @@ class PaymentController extends Controller
             "mh_participant_id" => 'required',
             'detail' => 'required',
             'total' => 'required|numeric',
+            "file" => "image|file|max:1024"
             // 'custom_title' => 'required'
         ]);
 
         $payment = new ThPayment($request->all());
         $payment->type = 1;
         $payment->user_id = Auth::user()->id;
-        $payment->file = $request->file("file")->store("payment");
+
+        if ($request->file("file")) {
+            $payment->file = $request->file("file")->store("payment");
+        }
+
 
         $payment->save();
 
@@ -112,9 +117,12 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ThPayment $payment)
     {
-        //
+        return view(
+            'payment.detail',
+            ['payment' => $payment]
+        );
     }
 
     /**

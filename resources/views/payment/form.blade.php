@@ -129,7 +129,12 @@
                 <div class="row mb-3">
                     <label for="file" class="col-sm-2 col-form-label">File Upload</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="file" id="file" name="file">
+                        <input class="form-control @error('file') is-invalid @enderror" type="file" id="file" name="file">
+                        @error('file')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                 </div>
 

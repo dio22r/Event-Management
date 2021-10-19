@@ -19,9 +19,14 @@ class MhParticipant extends Model
         return $this->belongsTo(MhParticipantType::class);
     }
 
-    public function th_payment()
+    public function th_payments()
     {
-        return $this->hasOneThrough('App\ThPayment', "App\TdPayment");
+        return $this->belongsToMany('App\ThPayment', "td_payments");
+    }
+
+    public function th_accomodations()
+    {
+        return $this->belongsToMany('App\ThAccomodation', "td_accomodations");
     }
 
     public function formatStatusLunas()
