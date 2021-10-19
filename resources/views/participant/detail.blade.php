@@ -42,7 +42,7 @@
                         <dd class="col-sm-8">{{ $participant->custom_title }} <i>(Khusus Untuk Tipe Tamu)</i></dd>
                     </dl>
 
-                    <a href="{{ url('/participant') }}" class="btn btn-sm btn-light">Kembali</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-sm btn-light">Kembali</a>
                     @if ($participant->paid_status == 1)
                     <a href="{{ url('/participant') }}" class="btn btn-sm btn-success">Print ID Card</a>
                     @else
