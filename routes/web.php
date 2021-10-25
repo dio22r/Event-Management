@@ -25,39 +25,6 @@ Route::get('/logout', 'Auth\LoginController@logout')->name("logout");
 
 Route::group(["middleware" => ["auth"]], function () {
 
-    // ==================== Product ===================== //
-
-    Route::get('/home', fn () => view("profile.profile"));
-    Route::get('/profile', fn () => view("profile.profile"));
-
-    Route::get('/password', "ProfileController@edit_password");
-    Route::post('/password', "ProfileController@update_password");
-
-    Route::get('/product', 'ProductController@index');
-    Route::get('/product/form', 'ProductController@create');
-    Route::get('/product/form/{product}', 'ProductController@edit');
-    Route::get('/product/{product}', 'ProductController@show');
-
-    Route::post('/product', 'ProductController@store');
-    Route::put('/product/{product}', 'ProductController@update');
-    Route::delete('/product/{product}', 'ProductController@destroy');
-
-    // ==================== eof Product ===================== //
-
-    // ==================== Category ===================== //
-
-
-    Route::get('/category', 'CategoryController@index');
-    Route::get('/category/form', 'CategoryController@create');
-    Route::get('/category/form/{category}', 'CategoryController@edit');
-    Route::get('/category/{category}', 'CategoryController@show');
-
-    Route::post('/category', 'CategoryController@store');
-    Route::put('/category/{category}', 'CategoryController@update');
-    Route::delete('/category/{category}', 'CategoryController@destroy');
-
-    // ==================== eof Category ===================== //
-
     // ==================== User ===================== //
 
     Route::group(["middleware" => ["is_admin"]], function () {
