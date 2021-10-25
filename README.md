@@ -2,6 +2,7 @@
 
 Halo, repository ini merupakan aplikasi pendaftaran peserta untuk seminar atau event dengan beberapa fitur, seperti:
 
+- login, user profile, ganti password
 -   User Management.
 -   Pendaftaran Peserta.
 -   Pembayaran Peserta.
