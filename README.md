@@ -5,8 +5,8 @@ Halo, repository ini merupakan aplikasi pendaftaran peserta untuk seminar atau e
 - login, user profile, ganti password
 -   User Management.
 -   Pendaftaran Peserta.
+-   Generate ID Card dengan QRCode.
 -   Pembayaran Peserta.
--   ID Card dengan QRCode.
 -   Akomodasi
 -   Kegiatan (Prority)
 -   Cek Tiket dan Daftar Hadir dengan QRCode Reader (Prority)
