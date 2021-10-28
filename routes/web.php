@@ -25,6 +25,11 @@ Route::get('/logout', 'Auth\LoginController@logout')->name("logout");
 
 Route::group(["middleware" => ["auth"]], function () {
 
+    Route::get('/home', fn () => view("profile.profile"));
+    Route::get('/profile', fn () => view("profile.profile"));
+    Route::get('/password', "ProfileController@edit_password");
+    Route::post('/password', "ProfileController@update_password");
+
     // ==================== User ===================== //
 
     Route::group(["middleware" => ["is_admin"]], function () {
@@ -48,4 +53,6 @@ Route::group(["middleware" => ["auth"]], function () {
 
     Route::resource("/accomodation", "AccomodationController")->except(["show"])->middleware("is_accomodation");
     Route::get("/accomodation/{accomodation}", "AccomodationController@show");
+
+    Route::resource("/event", "EventController");
 });

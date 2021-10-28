@@ -54,6 +54,9 @@
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('report*')) active @endif" href="{{ url('/report') }}">Laporan</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (Request::is('event*')) active @endif" href="{{ url('/event') }}">Kegiatan</a>
+                    </li>
                     @can("is_presensi")
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('presensi*')) active @endif" href="{{ url('/kehadiran') }}">Kehadiran</a>
