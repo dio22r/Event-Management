@@ -40,14 +40,41 @@
 
                         <dt class="col-sm-4">Kostum Title</dt>
                         <dd class="col-sm-8">{{ $participant->custom_title }} <i>(Khusus Untuk Tipe Tamu)</i></dd>
+
+
+                        <dt class="col-sm-4">Akomodasi</dt>
+                        <dd class="col-sm-8">
+                            @if (count($participant->th_accomodations) > 0)
+                            <a href="{{ url('/accomodation/' . $participant->th_accomodations[0]->id ) }}">
+                                {{ $participant->th_accomodations[0]->location }}
+                                <i>(Kamar: {{ $participant->th_accomodations[0]->room }})</i>
+                            </a>
+                            @else
+                            -
+                            @endif
+                        </dd>
                     </dl>
 
                     <a href="{{ url()->previous() }}" class="btn btn-sm btn-light">Kembali</a>
                     @if ($participant->paid_status == 1)
-                    <a href="{{ url('/participant') }}" class="btn btn-sm btn-success">Print ID Card</a>
+                    <div class="btn-group " role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Print ID Card
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <li><a class="dropdown-item" target="_blank" href="{{ url('participant/'.$participant->id.'/print_idcard?align=left') }}">Rata Kiri</a></li>
+                            <li><a class="dropdown-item" target="_blank" href="{{ url('participant/'.$participant->id.'/print_idcard') }}">Tengah</a></li>
+                            <li><a class="dropdown-item" target="_blank" href="{{ url('participant/'.$participant->id.'/print_idcard?align=right') }}">Rata Kanan</a></li>
+                        </ul>
+                    </div>
                     @else
-                    <a href="{{ url('/participant') }}" class="btn btn-sm btn-warning">Bayar</a>
+                    <a href="{{ url('/payment/create?mh_participant_id[]=' . $participant->id ) }}" class="btn btn-sm btn-warning">Bayar</a>
                     @endif
+
+                    @if (count($participant->th_payments) > 0)
+                    <a href="{{ url('/payment/' . $participant->th_payments[0]->id ) }}" class="btn btn-sm btn-warning">Lihat Pembayaran</a>
+                    @endif
+
                 </div>
                 <div class="col-md-6 my-3 m-md-0">
                     <style>
@@ -129,6 +156,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

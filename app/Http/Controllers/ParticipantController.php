@@ -109,6 +109,35 @@ class ParticipantController extends Controller
         );
     }
 
+    public function printIdcard(Request $request, MhParticipant $participant)
+    {
+        if ($participant->paid_status != 1) {
+            abort(403);
+        }
+
+        $align = "center";
+        if ($request->align == "left") {
+            $align = "left";
+        } else if ($request->align == "right") {
+            $align = "right";
+        }
+
+        $options = new QROptions([
+            'version'    => 5,
+            'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+        ]);
+
+
+        return view(
+            'participant.id_print_single',
+            [
+                'participant' => $participant,
+                'qrcode' => new QRCode($options),
+                'align' => $align
+            ]
+        );
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
