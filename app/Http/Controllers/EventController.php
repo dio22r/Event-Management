@@ -59,8 +59,8 @@ class EventController extends Controller
             'name' => 'required',
             'location' => 'required',
             'description' => 'required',
-            'date' => 'required',
-            'time' => 'required',
+            'date' => 'required|date',
+            'time' => 'required|time',
             // 'custom_title' => 'required'
         ]);
 
