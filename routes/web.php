@@ -47,9 +47,11 @@ Route::group(["middleware" => ["auth"]], function () {
 
     Route::resource("/participant", "ParticipantController")->except(["show"])->middleware("is_registration");
     Route::get("/participant/{participant}", "ParticipantController@show");
+    Route::get("/participant/{participant}/print_idcard", "ParticipantController@printIdcard");
 
     Route::resource("/payment", "PaymentController")->except(["show"])->middleware("is_payment");
     Route::get("/payment/{payment}", "PaymentController@show");
+    Route::get("/payment/{payment}/print_nota", "PaymentController@printNota");
 
     Route::resource("/accomodation", "AccomodationController")->except(["show"])->middleware("is_accomodation");
     Route::get("/accomodation/{accomodation}", "AccomodationController@show");

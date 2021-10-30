@@ -16,7 +16,9 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = ThPayment::with("mh_participants")->get();
+        $payments = ThPayment::with("mh_participants")
+            ->filters(request(["search"]))
+            ->paginate(20);
 
         return view(
             'payment.index',
@@ -121,6 +123,20 @@ class PaymentController extends Controller
     {
         return view(
             'payment.detail',
+            ['payment' => $payment]
+        );
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function printNota(ThPayment $payment)
+    {
+        return view(
+            'payment.print_nota',
             ['payment' => $payment]
         );
     }

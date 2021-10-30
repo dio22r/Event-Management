@@ -23,4 +23,14 @@ class ThPayment extends Model
     {
         return "Rp. " . number_format($this->total, 0) . " ,-";
     }
+
+
+    public function scopeFilters($query, $filters)
+    {
+        $query->when($filters["search"] ?? false, function ($query, $search) {
+            return $query->whereHas("mh_participants", function ($query) use ($search) {
+                $query->where("name", "like", "%" . $search . "%");
+            })->orWhere("detail", "like", "%" . $search . "%");
+        });
+    }
 }

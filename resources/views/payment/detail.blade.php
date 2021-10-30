@@ -58,7 +58,7 @@
 
 
                     <a href="{{ url('/payment') }}" class="btn btn-sm btn-light">Kembali</a>
-                    <a href="{{ url('/payment') }}" class="btn btn-sm btn-success">Print</a>
+                    <a href="{{ url('/payment/' . $payment->id . '/print_nota') }}" target="_blank" class="btn btn-sm btn-success">Print</a>
 
                 </div>
                 <div class="col-md-6 my-3 m-md-0">
