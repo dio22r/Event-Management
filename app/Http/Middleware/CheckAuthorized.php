@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsAccomodation
+class CheckAuthorized
 {
     /**
      * Handle an incoming request.
@@ -13,14 +13,15 @@ class IsAccomodation
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, ...$params)
     {
         foreach (auth()->user()->roles as $role) {
-            if (in_array($role->id, [1, 5])) {
+            if (in_array($role->id, $params)) {
                 return $next($request);
             }
         }
 
         abort(403);
+        // return $next($request);
     }
 }

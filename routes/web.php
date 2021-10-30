@@ -32,7 +32,7 @@ Route::group(["middleware" => ["auth"]], function () {
 
     // ==================== User ===================== //
 
-    Route::group(["middleware" => ["is_admin"]], function () {
+    Route::group(["middleware" => ["check_authorized:1"]], function () {
         Route::get('/user', 'UserController@index');
         Route::get('/user/form', 'UserController@create');
         Route::get('/user/form/{user}', 'UserController@edit');
@@ -45,16 +45,19 @@ Route::group(["middleware" => ["auth"]], function () {
 
     // ==================== eof User ===================== //
 
-    Route::resource("/participant", "ParticipantController")->except(["show"])->middleware("is_registration");
+    Route::resource("/participant", "ParticipantController")->except(["show"])->middleware("check_authorized:1,3");
     Route::get("/participant/{participant}", "ParticipantController@show");
     Route::get("/participant/{participant}/print_idcard", "ParticipantController@printIdcard");
 
-    Route::resource("/payment", "PaymentController")->except(["show"])->middleware("is_payment");
+    Route::resource("/payment", "PaymentController")->except(["show"])->middleware("check_authorized:1,4");
     Route::get("/payment/{payment}", "PaymentController@show");
     Route::get("/payment/{payment}/print_nota", "PaymentController@printNota");
 
-    Route::resource("/accomodation", "AccomodationController")->except(["show"])->middleware("is_accomodation");
+    Route::resource("/accomodation", "AccomodationController")->except(["show"])->middleware("check_authorized:1,5");
     Route::get("/accomodation/{accomodation}", "AccomodationController@show");
 
-    Route::resource("/event", "EventController");
+    Route::resource("/event", "EventController")->middleware("check_authorized:1");
+
+    Route::get("/attendance/{key}", "AttendanceController@show");
+    Route::post("/attendance", "AttendanceController@store");
 });
