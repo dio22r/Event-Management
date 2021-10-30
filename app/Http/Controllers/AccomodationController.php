@@ -16,7 +16,9 @@ class AccomodationController extends Controller
      */
     public function index()
     {
-        $accomodations = ThAccomodation::with("mh_participants")->get();
+        $accomodations = ThAccomodation::with("mh_participants")
+            ->filters(request(["search"]))
+            ->paginate(20);
 
         return view(
             'accomodation.index',

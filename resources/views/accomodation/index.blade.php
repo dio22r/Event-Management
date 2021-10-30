@@ -13,8 +13,21 @@
         <div class="card-body">
 
 
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{ url('/accomodation/create') }}" class="btn btn-sm btn-primary">Tambah</a>
+                </div>
+                <div class="col-md-3 offset-3 text-right">
 
-            <a href="{{ url('/accomodation/create') }}" class="btn btn-sm btn-primary">Tambah</a>
+                    <form action="{{ url('/accomodation') }}" method="GET">
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" name="search" class="form-control" placeholder="Filter . . ." aria-label="Recipient's username" aria-describedby="button-addon2" value="{{ request('search') }}">
+                            <button class="btn btn-success" type="submit" id="button-addon2">Cari!</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
 
             <table class="table caption-top">
                 <caption>Data Akomodasi</caption>
@@ -53,6 +66,7 @@
             </table>
 
 
+            {{ $accomodations->links() }}
         </div>
     </div>
 </div>
