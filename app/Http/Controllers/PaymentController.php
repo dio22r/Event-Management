@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(ThPayment::class, 'payment');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -135,6 +140,10 @@ class PaymentController extends Controller
      */
     public function printNota(ThPayment $payment)
     {
+        if ($this->authorize("create", $payment)) {
+            abort(403);
+        }
+
         return view(
             'payment.print_nota',
             ['payment' => $payment]

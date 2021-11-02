@@ -42,8 +42,9 @@
         <div class="card-body">
 
 
-
+            @can('create', new App\MhParticipant())
             <a href="{{ url('/participant/create') }}" class="btn btn-sm btn-primary">Tambah</a>
+            @endcan
 
             <table class="table caption-top">
                 <caption>Data Seluruh Peserta</caption>
@@ -70,8 +71,12 @@
                             <form method="POST" action="{{ url('/participant/' . $participant->id) }}">
                                 @method('DELETE')
                                 @csrf
+                                @can('update', $participant)
                                 <a href="{{ url('/participant/' . $participant->id . '/edit') }}" class="btn btn-sm btn-success">Edit</a>
+                                @endcan
+                                @can('delete', $participant)
                                 <button type="submit" onclick="return confirm('Apakah anda ingin menghapus data ini?')" class="btn btn-sm btn-danger ">Delete</button>
+                                @endcan
                             </form>
                         </td>
                     </tr>

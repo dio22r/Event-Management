@@ -45,12 +45,10 @@ Route::group(["middleware" => ["auth"]], function () {
 
     // ==================== eof User ===================== //
 
-    Route::resource("/participant", "ParticipantController")->except(["show"])->middleware("check_authorized:1,3");
-    Route::get("/participant/{participant}", "ParticipantController@show");
+    Route::resource("/participant", "ParticipantController");
     Route::get("/participant/{participant}/print_idcard", "ParticipantController@printIdcard");
 
-    Route::resource("/payment", "PaymentController")->except(["show"])->middleware("check_authorized:1,4");
-    Route::get("/payment/{payment}", "PaymentController@show");
+    Route::resource("/payment", "PaymentController");
     Route::get("/payment/{payment}/print_nota", "PaymentController@printNota");
 
     Route::resource("/accomodation", "AccomodationController")->except(["show"])->middleware("check_authorized:1,5");

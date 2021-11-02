@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
+use Illuminate\Support\Facades\Auth;
 
 class ParticipantController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(MhParticipant::class, 'participant');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +28,8 @@ class ParticipantController extends Controller
         $dataParticipant = MhParticipant::with("mh_participant_type")
             ->filters(request(["search", "type", "paid_status"]))
             ->paginate(20);
+
+        $participant = new MhParticipant();
 
         return view(
             'participant.index',
@@ -71,6 +80,7 @@ class ParticipantController extends Controller
         ]);
 
         $participant = new MhParticipant($request->all());
+
         $participant->key = md5(date("Hismdyu") . rand());
 
         if ($request->mh_participant_type_id != 3) {
@@ -111,6 +121,10 @@ class ParticipantController extends Controller
 
     public function printIdcard(Request $request, MhParticipant $participant)
     {
+        if ($this->authorize("update", $participant)) {
+            abort(403);
+        }
+
         if ($participant->paid_status != 1) {
             abort(403);
         }

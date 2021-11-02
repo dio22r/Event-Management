@@ -22,7 +22,6 @@
 
             @if (Auth::check())
 
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,12 +35,10 @@
                         <a class="nav-link" href="{{ url('/category') }}">Kategory</a>
                     </li>
                      -->
-                    @can("is_registration")
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('participant*')) active @endif" href="{{ url('/participant') }}">Pendaftaran</a>
                     </li>
-                    @endcan
-                    @can("is_payment")
+                    @can("view-any", new App\ThPayment())
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('payment*')) active @endif" href="{{ url('/payment') }}">Pembayaran</a>
                     </li>
@@ -62,7 +59,8 @@
                         <a class="nav-link @if (Request::is('presensi*')) active @endif" href="{{ url('/kehadiran') }}">Kehadiran</a>
                     </li>
                     @endcan
-                    @can("is_admin")
+
+                    @can("view-any", new App\User())
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('user*')) active @endif" href="{{ url('/user') }}">User</a>
                     </li>

@@ -55,11 +55,14 @@
                         </tbody>
                     </table>
 
+                    @cannot("view-any", $payment)
+                    <a href="{{ url('/participant') }}" class="btn btn-sm btn-light">Kembali</a>
+                    @endcan
 
-
+                    @can("create", $payment)
                     <a href="{{ url('/payment') }}" class="btn btn-sm btn-light">Kembali</a>
                     <a href="{{ url('/payment/' . $payment->id . '/print_nota') }}" target="_blank" class="btn btn-sm btn-success">Print</a>
-
+                    @endcan
                 </div>
                 <div class="col-md-6 my-3 m-md-0">
                     <img width="100%" src="{{ url('/storage/'.$payment->file) }}" />

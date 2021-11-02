@@ -56,7 +56,11 @@
                     </dl>
 
                     <a href="{{ url()->previous() }}" class="btn btn-sm btn-light">Kembali</a>
+
+
                     @if ($participant->paid_status == 1)
+
+                    @can("update", $participant)
                     <div class="btn-group " role="group">
                         <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             Print ID Card
@@ -67,8 +71,14 @@
                             <li><a class="dropdown-item" target="_blank" href="{{ url('participant/'.$participant->id.'/print_idcard?align=right') }}">Rata Kanan</a></li>
                         </ul>
                     </div>
+                    @endcan
+
                     @else
+
+                    @can("create", App\ThPayment)
                     <a href="{{ url('/payment/create?mh_participant_id[]=' . $participant->id ) }}" class="btn btn-sm btn-warning">Bayar</a>
+                    @endcan
+
                     @endif
 
                     @if (count($participant->th_payments) > 0)
