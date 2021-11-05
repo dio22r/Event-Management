@@ -10,4 +10,9 @@ class MhEvent extends Model
     use SoftDeletes;
 
     protected $fillable = ["name", "start_at", "location", "description"];
+
+    public function mh_participants()
+    {
+        return $this->belongsToMany(MhParticipant::class, "th_attendances");
+    }
 }

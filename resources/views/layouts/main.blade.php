@@ -43,7 +43,7 @@
                         <a class="nav-link @if (Request::is('payment*')) active @endif" href="{{ url('/payment') }}">Pembayaran</a>
                     </li>
                     @endcan
-                    @can("is_acomodation")
+                    @can("view-any", new App\ThAccomodation())
                     <li class="nav-item">
                         <a class="nav-link @if (Request::is('accomodation*')) active @endif" href="{{ url('/accomodation') }}">Akomodasi</a>
                     </li>

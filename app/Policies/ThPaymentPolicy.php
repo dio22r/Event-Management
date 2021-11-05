@@ -12,7 +12,7 @@ class ThPaymentPolicy
 
     public static $role_allowed = [
         1, // Admin
-        4  // Accomodation User
+        4  // Payment User
     ];
 
     /**

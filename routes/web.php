@@ -12,6 +12,8 @@
 */
 
 // use Illuminate\Routing\Route;
+
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -51,10 +53,9 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::resource("/payment", "PaymentController");
     Route::get("/payment/{payment}/print_nota", "PaymentController@printNota");
 
-    Route::resource("/accomodation", "AccomodationController")->except(["show"])->middleware("check_authorized:1,5");
-    Route::get("/accomodation/{accomodation}", "AccomodationController@show");
+    Route::resource("/accomodation", "AccomodationController");
 
-    Route::resource("/event", "EventController")->middleware("check_authorized:1");
+    Route::resource("/event", "EventController");
 
     Route::get("/attendance/{key}", "AttendanceController@show");
     Route::post("/attendance", "AttendanceController@store");
