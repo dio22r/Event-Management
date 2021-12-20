@@ -13,8 +13,8 @@
 
 // use Illuminate\Routing\Route;
 
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,5 +58,6 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::resource("/event", "EventController");
 
     Route::get("/attendance/{key}", "AttendanceController@show");
-    Route::post("/attendance", "AttendanceController@store");
+    Route::post("/attendance", "AttendanceController@store")->name('attendance.store');
+    Route::get("/attendance", "AttendanceController@list")->name('attendance.list');
 });

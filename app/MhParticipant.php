@@ -29,6 +29,13 @@ class MhParticipant extends Model
         return $this->belongsToMany('App\ThAccomodation', "td_accomodations");
     }
 
+    public function mh_events()
+    {
+        return $this->belongsToMany(MhEvent::class, "th_attendances")
+            ->withPivot(['created_at', 'updated_at'])
+            ->orderBy('pivot_created_at', 'desc');
+    }
+
     public function formatStatusLunas()
     {
         $arrStatus = ["Belum Lunas", "Lunas"];

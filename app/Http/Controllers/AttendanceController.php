@@ -13,14 +13,19 @@ class AttendanceController extends Controller
         $event = MhEvent::where("key", "=", $key)->firstOrFail();
 
         return view("attendance.show", [
-            "event" => $event
+            "event" => $event,
+            "jsIntialValue" => [
+                "keyEvent" => $key,
+                "urlPost" => route('attendance.store'),
+                "urlGet" => route('attendance.list'),
+            ]
         ]);
     }
 
     public function store(Request $request)
     {
-        $keyEvent = $request->keyEvent;
-        $keyParticipant = $request->keyParticipant;
+        $keyEvent = $request->key_event;
+        $keyParticipant = $request->key;
 
         $event = MhEvent::where("key", "=", $keyEvent)
             ->where("is_open", "=", "1")
@@ -36,5 +41,23 @@ class AttendanceController extends Controller
             "status" => "Oke!",
             "msg" => "Selamat Datang " . $participant->name
         ];
+    }
+
+    public function list(Request $request)
+    {
+        $keyEvent = $request->key_event;
+
+        MhEvent::where("key", "=", $keyEvent)->firstOrFail();
+
+        $participant = MhParticipant::whereHas('mh_events', function ($query) use ($keyEvent) {
+            $query->where("mh_events.key", "=", $keyEvent);
+        });
+
+        $arrRespond = [
+            "data" => $participant->get(),
+            "total" => 0,
+        ];
+
+        return $arrRespond;
     }
 }
