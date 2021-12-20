@@ -63,7 +63,7 @@ class MhParticipantPolicy
     public function update(User $user, MhParticipant $mhParticipant)
     {
         $checkRole = $user->roles->whereIn("id", self::$role_allowed);
-        if (count($checkRole) < 1) {
+        if ($checkRole->count() < 1) {
             return false;
         }
 

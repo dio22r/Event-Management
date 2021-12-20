@@ -121,11 +121,11 @@ class ParticipantController extends Controller
 
     public function printIdcard(Request $request, MhParticipant $participant)
     {
-        if ($this->authorize("update", $participant)) {
+        if (!$this->authorize("update", $participant)) {
             abort(403);
         }
 
-        if ($participant->paid_status != 1) {
+        if ($participant->paid_status != 1 && $participant->mh_participant_type_id == 3) {
             abort(403);
         }
 
