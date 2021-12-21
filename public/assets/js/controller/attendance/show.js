@@ -73,13 +73,16 @@ var app = new Vue({
             elToast.innerHTML = `
                 <div class="d-flex">
                     <div class="toast-body">
-                    Hello, world! This is a toast message.
+                    ${data.msg}
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>`;
 
             console.log(toastContainer);
             toastContainer.appendChild(elToast);
+
+            let toast = new bootstrap.Toast(elToast);
+            toast.show();
         },
 
         selectCamera: function (camera) {
@@ -103,16 +106,6 @@ var app = new Vue({
                 console.log(self.detail);
                 if (response.data.status) {
                     self.addToast(response.data);
-
-                    let toastElList = [].slice.call(
-                        document.querySelectorAll(".toast")
-                    );
-                    let toastList = toastElList.map(function (toastEl) {
-                        return new bootstrap.Toast(toastEl);
-                    });
-
-                    toastList.forEach((toast) => toast.show());
-
                     self.get_all();
                 }
             });

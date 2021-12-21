@@ -67,6 +67,12 @@
                             </tr>
                         </table>
 
+                        <div v-if="items.length > 0" class="text-center">
+                            <a class="btn btn-warning" href="{{ url('/attendance/' . $event->key . '/all-participant') }}">
+                                Lihat Semua
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>

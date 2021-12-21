@@ -24,6 +24,8 @@ Route::get('/login', 'Auth\LoginController@form')->name("login");
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout')->name("logout");
 
+Route::get('/idcard/{key}', 'IdCardDataController@showEvents');
+Route::get('/idcard/{key}/print', 'IdCardDataController@printIdCard');
 
 Route::group(["middleware" => ["auth"]], function () {
 
@@ -58,6 +60,8 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::resource("/event", "EventController");
 
     Route::get("/attendance/{key}", "AttendanceController@show");
+    Route::get("/attendance/{key}/all-participant", "AttendanceController@all");
+
     Route::post("/attendance", "AttendanceController@store")->name('attendance.store');
     Route::get("/attendance", "AttendanceController@list")->name('attendance.list');
 });

@@ -13,6 +13,7 @@ class MhEvent extends Model
 
     public function mh_participants()
     {
-        return $this->belongsToMany(MhParticipant::class, "th_attendances");
+        return $this->belongsToMany(MhParticipant::class, "th_attendances")
+            ->withTimestamps();
     }
 }

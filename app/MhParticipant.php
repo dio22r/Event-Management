@@ -26,14 +26,14 @@ class MhParticipant extends Model
 
     public function th_accomodations()
     {
-        return $this->belongsToMany('App\ThAccomodation', "td_accomodations");
+        return $this->belongsToMany('App\ThAccomodation', "td_accomodations")
+            ->withTimestamps();
     }
 
     public function mh_events()
     {
         return $this->belongsToMany(MhEvent::class, "th_attendances")
-            ->withPivot(['created_at', 'updated_at'])
-            ->orderBy('pivot_created_at', 'desc');
+            ->withTimestamps();
     }
 
     public function formatStatusLunas()
