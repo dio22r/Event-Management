@@ -45,12 +45,9 @@ class LoginController extends Controller
 
         $user->email = old("email");
 
-        return view(
-            "auth.login",
-            [
-                "action_url" => url("/login"),
-                "user" => $user
-            ]
-        );
+        return view("auth.login", [
+            "action_url" => url("/login"),
+            "user" => $user
+        ]);
     }
 }
