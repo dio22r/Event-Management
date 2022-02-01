@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventRequest;
 use App\MhEvent;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -53,16 +53,8 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'location' => 'required',
-            'description' => 'required',
-            'date' => 'required|date',
-            'time' => 'required|time',
-            // 'custom_title' => 'required'
-        ]);
 
         $event = new MhEvent($request->all());
         $event->start_at = $request->date . " " . $request->time;
@@ -117,17 +109,8 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MhEvent $event)
+    public function update(EventRequest $request, MhEvent $event)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'location' => 'required',
-            'description' => 'required',
-            'date' => 'required',
-            'time' => 'required',
-            // 'custom_title' => 'required'
-        ]);
-
         $event->name = $request->name;
         $event->start_at = $request->date . " " . $request->time;
         $event->location = $request->location;
@@ -135,7 +118,6 @@ class EventController extends Controller
         // $event->key = md5(rand() . date("umiHsY"));
 
         $event->save();
-
         return redirect('/event');
     }
 
