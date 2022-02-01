@@ -58,6 +58,19 @@
                         @enderror
                     </div>
                 </div>
+
+                <div class="row mb-3">
+                    <label for="cover_image" class="col-sm-2 col-form-label">Cover Image</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control @error('cover_image') is-invalid @enderror" id="cover_image" name="cover_image">
+                        @error('location')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <label for="description" class="col-sm-2 col-form-label">Detail</label>
                     <div class="col-sm-10">
@@ -69,6 +82,7 @@
                         @enderror
                     </div>
                 </div>
+
                 <div class="row mb-3">
                     <div class="col-sm-10 offset-sm-2">
                         <a href="{{ url('/event') }}" class="btn btn-sm btn-light">Kembali</a>
@@ -81,4 +95,14 @@
 </div>
 
 
+@endsection
+
+@section("js")
+<script src="https://cdn.tiny.cloud/1/lpvzaq0rzbkg7bnqy10wvlse1hxnz24d38s2vs2hfljxpggx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#description',
+        height: 300
+    });
+</script>
 @endsection
