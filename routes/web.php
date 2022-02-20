@@ -16,9 +16,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/login', 'Auth\LoginController@form')->name("login");
 Route::post('/login', 'Auth\LoginController@login');
@@ -29,9 +27,10 @@ Route::get('/idcard/{key}/print', 'IdCardDataController@printIdCard');
 
 Route::group(["middleware" => ["auth"]], function () {
 
+    Route::get('/dashboard', "DasboardController@index")->name('dashboard');
     Route::get('/home', fn () => view("profile.profile"));
-    Route::get('/profile', fn () => view("profile.profile"));
-    Route::get('/password', "ProfileController@edit_password");
+    Route::get('/profile', fn () => view("profile.profile"))->name('profile');
+    Route::get('/password', "ProfileController@edit_password")->name('change.password');
     Route::post('/password', "ProfileController@update_password");
 
     // ==================== User ===================== //
