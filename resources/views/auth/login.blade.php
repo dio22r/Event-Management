@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.nomenu')
 
 @section('css')
 
@@ -6,7 +6,7 @@
 
 @endsection
 
-@section('title', 'Form User')
+@section('title', 'Login')
 
 @section('content')
 

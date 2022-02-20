@@ -87,8 +87,9 @@
 @endsection
 
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{ url('/assets/js/axios.min.js') }}"></script>
+<script src="{{ url('/assets/js/vue2.js') }}"></script>
+<script src="{{ url('/assets/js/sweetalert2.11.js') }}"></script>
 <script src="{{ url('/assets/js/instascan.min.js') }}"></script>
 
 <script>
