@@ -55,10 +55,10 @@ class EventController extends Controller
      */
     public function store(EventRequest $request)
     {
-
-        $event = new MhEvent($request->all());
+        $event = new MhEvent($request->validated());
         $event->start_at = $request->date . " " . $request->time;
         $event->key = md5(rand() . date("umiHsY"));
+
         $event->save();
 
         return redirect('/event');
